@@ -7,6 +7,7 @@ const URL = 'http://api.openweathermap.org/geo/1.0/direct?q='
 const MySearchBar = ({ setCoordinates }) => {
   const [text, setText] = useState('')
   const [list, setList] = useState([])
+  const [view, setView] = useState(false)
 
   const navigate = useNavigate()
 
@@ -16,6 +17,7 @@ const MySearchBar = ({ setCoordinates }) => {
       if (resp.ok) {
         const result = await resp.json()
         setList(result)
+        setView(true)
       } else {
         if (resp.status === 400) {
           throw new Error('400 Bad Request')
@@ -63,29 +65,33 @@ const MySearchBar = ({ setCoordinates }) => {
           <i className="bi bi-search icons mx-0"></i>
         </Button>
       </Form>
-
-      <ListGroup className="my-3 ">
-        {list &&
-          list.map((city, i) => (
-            <ListGroup.Item key={i} className="w-75 mx-auto" onClick={() => changePage(city)}>
-              <Row className="align-items-center">
-                <Col className="fs-4">
-                  City: <span className="fw-light">{city.name}</span>
-                </Col>
-                <Col className="fs-4">
-                  Country: <span className="fw-light">{city.country}</span>
-                </Col>
-                <Col className="fs-4">
-                  {city.state && (
-                    <>
-                      State: <span className="fw-light">{city.state}</span>
-                    </>
-                  )}
-                </Col>
-              </Row>
-            </ListGroup.Item>
-          ))}
-      </ListGroup>
+      {view && (
+        <ListGroup className="my-3 ">
+          {list.length > 0 ? (
+            list.map((city, i) => (
+              <ListGroup.Item key={i} className="w-75 mx-auto" onClick={() => changePage(city)}>
+                <Row className="align-items-center">
+                  <Col className="fs-4">
+                    City: <span className="fw-light">{city.name}</span>
+                  </Col>
+                  <Col className="fs-4">
+                    Country: <span className="fw-light">{city.country}</span>
+                  </Col>
+                  <Col className="fs-4">
+                    {city.state && (
+                      <>
+                        State: <span className="fw-light">{city.state}</span>
+                      </>
+                    )}
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+            ))
+          ) : (
+            <ListGroup.Item className="w-75 mx-auto">No result match</ListGroup.Item>
+          )}
+        </ListGroup>
+      )}
     </div>
   )
 }
