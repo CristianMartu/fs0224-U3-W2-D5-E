@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Col, Image, Row } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 import DayWeather from './DayWeather'
+import MySpinner from './MySpinner'
 
 // const URL = 'https://api.openweathermap.org/data/2.5/weather?'
 const URL = 'https://api.openweathermap.org/data/2.5/forecast?'
@@ -41,6 +42,6 @@ const MyWeather = ({ coordinates }) => {
     }
   }, [coordinates])
 
-  return data.city && <DayWeather data={data} />
+  return data.city ? <DayWeather data={data} /> : <MySpinner />
 }
 export default MyWeather
