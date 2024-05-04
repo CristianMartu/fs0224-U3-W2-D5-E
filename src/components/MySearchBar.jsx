@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button, Form, ListGroup } from 'react-bootstrap'
+import { Button, Col, Form, ListGroup, Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 
 const URL = 'http://api.openweathermap.org/geo/1.0/direct?q='
@@ -50,26 +50,43 @@ const MySearchBar = ({ setCoordinates }) => {
   }
 
   return (
-    <>
-      {/* <Button onClick={() => navigate('/weather')}>Weather page</Button> */}
-      <Form onSubmit={handleSubmit} className="d-flex justify-content-end align-items-center">
-        <Form.Control type="text" onChange={(e) => setText(e.target.value)} value={text} placeholder="Search city..." />
-        <Button type="submit" variant="dark" className="rounded-end me-2">
+    <div className="mt-5">
+      <Form onSubmit={handleSubmit} className="d-flex justify-content-center align-items-center ms-2">
+        <Form.Control
+          type="text"
+          onChange={(e) => setText(e.target.value)}
+          value={text}
+          placeholder="Search city..."
+          className="w-75"
+        />
+        <Button type="submit" variant="dark" className="rounded-end">
           <i className="bi bi-search icons mx-0"></i>
         </Button>
       </Form>
 
-      <ListGroup className="my-3">
+      <ListGroup className="my-3 ">
         {list &&
           list.map((city, i) => (
-            <ListGroup.Item key={i} className="text-start w-25" onClick={() => changePage(city)}>
-              <p>city: {city.name}</p>
-              <p>country: {city.country}</p>
-              <p>state: {city.state}</p>
+            <ListGroup.Item key={i} className="w-75 mx-auto" onClick={() => changePage(city)}>
+              <Row className="align-items-center">
+                <Col className="fs-4">
+                  City: <span className="fw-light">{city.name}</span>
+                </Col>
+                <Col className="fs-4">
+                  Country: <span className="fw-light">{city.country}</span>
+                </Col>
+                <Col className="fs-4">
+                  {city.state && (
+                    <>
+                      State: <span className="fw-light">{city.state}</span>
+                    </>
+                  )}
+                </Col>
+              </Row>
             </ListGroup.Item>
           ))}
       </ListGroup>
-    </>
+    </div>
   )
 }
 export default MySearchBar

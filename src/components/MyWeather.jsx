@@ -8,6 +8,7 @@ const URL = 'https://api.openweathermap.org/data/2.5/forecast?'
 
 const MyWeather = ({ coordinates }) => {
   const [data, setData] = useState([])
+  console.log(coordinates)
 
   const handleSearch = async (url) => {
     try {

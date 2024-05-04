@@ -44,7 +44,7 @@ const DayWeather = ({ data }) => {
   const temp = (day) => parseInt(day.main.temp - 273.15)
 
   return (
-    <Card>
+    <Card className="my-5">
       <CardHeader>
         <h1 className="text-center">{data.city.name}</h1>
         <p className="text-center">{getFullDate(currentDay.dt_txt)}</p>
@@ -72,7 +72,7 @@ const DayWeather = ({ data }) => {
         </div>
       </Card.Header>
       <Card.Body>
-        <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-between meteo">
           {data.list.slice(0, 8).map((day, index) => (
             <div className="text-center" key={index}>
               <p>{changeDateToHour(day.dt_txt)}:00</p>
@@ -83,8 +83,8 @@ const DayWeather = ({ data }) => {
         </div>
       </Card.Body>
       <CardFooter className="text-center">
-        <NavLink to="/" className="btn">
-          HOME
+        <NavLink to="/" className="btn returnHome">
+          <p className="returnHome m-0">NEW SEARCH</p>
         </NavLink>
       </CardFooter>
     </Card>

@@ -38,5 +38,30 @@
 }
 
 body {
-  background-color: #282c34;
+  height: 100vh;
+  /* background-color: black; */
+  background: linear-gradient(
+    180deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 0.8715861344537815) 35%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  background: url('assets/cielogrande.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.returnHome:hover {
+  color: rgb(19, 152, 230);
+}
+
+.card {
+  box-shadow: 4px 4px 4px rgb(19, 152, 230);
+}
+
+@media screen and (max-width: 995px) {
+  .meteo {
+    overflow-x: scroll;
+  }
 }
