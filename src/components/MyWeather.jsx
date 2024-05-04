@@ -42,6 +42,12 @@ const MyWeather = ({ coordinates }) => {
     }
   }, [coordinates])
 
-  return data.city ? <DayWeather data={data} /> : <MySpinner />
+  return data.city ? (
+    <DayWeather data={data} />
+  ) : (
+    <div style={{ height: 'calc(100vh - 159px)' }}>
+      <MySpinner />
+    </div>
+  )
 }
 export default MyWeather

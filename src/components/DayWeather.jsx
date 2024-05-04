@@ -1,8 +1,11 @@
-import { Card, CardFooter, CardHeader, Col, Image, Row } from 'react-bootstrap'
+import { Button, Card, CardFooter, CardHeader, Col, Collapse, Image, Row } from 'react-bootstrap'
 import logo from '../assets/logo_white_cropped.png'
 import { NavLink } from 'react-router-dom'
+import { useState } from 'react'
 
 const DayWeather = ({ data }) => {
+  const [open, setOpen] = useState(false)
+
   const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', ' Thursday', 'Friday', 'Saturday']
   const monthNames = [
     'January',
@@ -34,6 +37,14 @@ const DayWeather = ({ data }) => {
     const result = day.getHours()
     return result
   }
+
+  const getDayName = (date) => {
+    const day = new Date(date)
+    return dayNames[day.getDay()]
+  }
+
+  // const tempToCelsius = (data) => parseInt(data - 273.15)
+  const tempToCelsius = (data) => parseFloat((data - 273.15).toFixed(2))
 
   const currentDay = data.list[0]
   const currentTemp = parseFloat((currentDay.main.temp - 273.15).toFixed(2))
@@ -87,6 +98,30 @@ const DayWeather = ({ data }) => {
           <p className="returnHome m-0">NEW SEARCH</p>
         </NavLink>
       </CardFooter>
+
+      <Button
+        onClick={() => setOpen(!open)}
+        aria-controls="example-collapse-text"
+        aria-expanded={open}
+        variant="primary"
+        className="mt-2"
+      >
+        Forecast up to 5 days
+      </Button>
+      <Collapse in={open}>
+        <div id="example-collapse-text">
+          <Row className="text-center">
+            {data.list.slice(8).map((day, index) => (
+              <Col sm={6} id="example-collapse-text" key={index}>
+                <p className="fs-5 mb-0">{getDayName(day.dt_txt)}</p>
+                <p className="fs-5 mb-0"> {changeDateToHour(day.dt_txt)}:00</p>
+                <Image src={`https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`} />
+                <p className="fs-5 mb-5">{tempToCelsius(day.main.temp)}°</p>
+              </Col>
+            ))}
+          </Row>
+        </div>
+      </Collapse>
     </Card>
   )
 }

@@ -52,7 +52,7 @@ const MySearchBar = ({ setCoordinates }) => {
   }
 
   return (
-    <div className="mt-5">
+    <div className="mt-5" style={{ height: 'calc(100vh - 159px)' }}>
       <Form onSubmit={handleSubmit} className="d-flex justify-content-center align-items-center ms-2">
         <Form.Control
           type="text"
