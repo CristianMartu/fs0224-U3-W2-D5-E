@@ -3,6 +3,7 @@ import { Col, Image, Row } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 import DayWeather from './DayWeather'
 import MySpinner from './MySpinner'
+import DayWeather2 from './DayWeather2'
 
 // const URL = 'https://api.openweathermap.org/data/2.5/weather?'
 const URL = 'https://api.openweathermap.org/data/2.5/forecast?'
@@ -43,7 +44,7 @@ const MyWeather = ({ coordinates }) => {
   }, [coordinates])
 
   return data.city ? (
-    <DayWeather data={data} />
+    <DayWeather2 data={data} />
   ) : (
     <div style={{ height: 'calc(100vh - 159px)' }}>
       <MySpinner />
